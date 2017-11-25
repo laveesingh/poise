@@ -2,7 +2,7 @@ import React from 'react'
 
 import { 
   Grid, Typography, Select,
-  Divider, TextField
+  Divider, TextField, Button
 } from 'material-ui'
 import { FormControl } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
@@ -15,10 +15,11 @@ class Rightbar extends React.Component{
     this.changeCategory = this.changeCategory.bind(this)
     this.changeLatitude = this.changeLatitude.bind(this)
     this.changeLongitude = this.changeLongitude.bind(this)
+    this.changeHeadline = this.changeHeadline.bind(this)
+    this.changeExperience = this.changeExperience.bind(this)
+    this.addNotch = this.addNotch.bind(this)
     this.state = {
       category: 'first',
-      headline: '',
-      experience: ''
     }
   }
 
@@ -40,6 +41,21 @@ class Rightbar extends React.Component{
     })
   }
 
+
+  changeHeadline(event){
+    this.setState({
+      headline: event.target.value
+    })
+  }
+
+  changeExperience(event){
+    this.setState({
+      experience: event.target.value
+    })
+  }
+  addNotch(){
+    alert('new notch added')
+  }
   render(){
     return (
       <Grid container id='cont-right-bar'>
@@ -109,6 +125,14 @@ class Rightbar extends React.Component{
             onChange={this.changeExperience} label='experience'
             rows={3}
           />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} >
+          <center>
+            <Button raised 
+              className='white-btn' onClick={this.addNotch} >
+              Add Notch
+            </Button>
+          </center>
         </Grid>
       </Grid>
     )

@@ -7,6 +7,7 @@ import {
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import { blue } from 'material-ui/colors'
+import Rightbar from './Rightbar'
 import '../../styles/leftbar.css'
 
 const theme = createMuiTheme({
@@ -24,6 +25,8 @@ class Leftbar extends React.Component{
     this.signup = this.signup.bind(this)
     this.openGuide = this.openGuide.bind(this)
     this.closeGuide = this.closeGuide.bind(this)
+    this.openAddNotch = this.openAddNotch.bind(this)
+    this.closeAddNotch = this.closeAddNotch.bind(this)
 
     this.state = {
     }
@@ -58,6 +61,18 @@ class Leftbar extends React.Component{
   closeGuide(){
     this.setState({
       guideOpened: false,
+    })
+  }
+
+  openAddNotch(){
+    this.setState({
+      addNotchOpened: true
+    })
+  }
+
+  closeAddNotch(){
+    this.setState({
+      addNotchOpened: false
     })
   }
 
@@ -109,6 +124,16 @@ class Leftbar extends React.Component{
             <Dialog 
               onRequestClose={this.closeGuide} open={this.state.guideOpened} >
               <DialogTitle>This is guide.</DialogTitle>
+            </Dialog>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} >
+            <Button onClick={this.openAddNotch}>
+              Add new notch
+            </Button>
+            <Dialog 
+              onRequestClose={this.closeAddNotch} open={this.state.addNotchOpened} id='add-notch-dialog'>
+              <DialogTitle>This is new notch form.</DialogTitle>
+              <Rightbar />
             </Dialog>
           </Grid>
         </Grid>
