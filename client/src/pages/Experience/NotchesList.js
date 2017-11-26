@@ -1,11 +1,10 @@
 import React from 'react'
 
 import { 
-  Grid, Divider, Typography, TextField,
+  Grid, Divider, Typography,
   Avatar, Paper
 } from 'material-ui'
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
-import { MenuItem } from 'material-ui/Menu'
 
 import { notches } from '../../utils/dummyNotches'
 

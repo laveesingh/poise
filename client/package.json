@@ -4,12 +4,16 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "axios": "^0.17.1",
     "google-map-react": "^0.25.0",
     "material-ui": "^1.0.0-beta.21",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-google-login": "^3.0.2",
     "react-google-maps": "^9.2.2",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
     "webpack": "^3.8.1"
   },

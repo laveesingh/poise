@@ -5,7 +5,6 @@ import {
   Button, Paper
 } from 'material-ui'
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
-import { blue } from 'material-ui/colors'
 import AddNotch from './AddNotch'
 import { GoogleLogin } from 'react-google-login' 
 import '../../styles/leftbar.css'

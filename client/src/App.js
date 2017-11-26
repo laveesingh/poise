@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import { green } from 'material-ui/colors'
 import Experiences from "./pages/Experience";
-import Nav from "./components/Nav";
 import Leftbar from './pages/Experience/Leftbar'
 
 const theme = createMuiTheme({

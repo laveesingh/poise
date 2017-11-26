@@ -1,17 +1,7 @@
-import React, {Component} from 'react';
-import GoogleMapReact from 'google-map-react';
+import React from 'react';
 import {compose, withProps} from 'recompose';
-import ArticleBtn from '../../components/ArticleBtn';
-import Jumbotron from '../../components/Jumbotron';
-import API from '../../utils/API';
-import {Link} from 'react-router-dom';
-import {Col, Row, Container} from '../../components/Grid';
-import {List, ListItem} from '../../components/List';
-import {Input, FormBtn} from '../../components/Form';
-
 import { Grid } from 'material-ui'
 import Leftbar from './Leftbar'
-import AddNotch from './AddNotch'
 import NotchesList from './NotchesList'
 import Navbar from './Navbar'
 import '../../styles/experience.css'
@@ -45,7 +35,7 @@ const MyMapComponent = compose(
 ));
 
 
-class Experience extends React.PureComponent {
+class Experience extends React.Component {
   state = {
     isMarkerShown: false,
   };
