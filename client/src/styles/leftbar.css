@@ -1,14 +1,10 @@
-#cont-left-bar{
-  padding: 4px;
-}
-#cont-left-bar *{
-  color: white;
-}
 
 #item-logo{
-  margin: 10px;
+  margin: 0px;
+  /*background-color: #37a000; */
 }
 
-.white-btn *{
-  color: blue !important;
+
+#left-paper{
+  padding: 10px;
 }

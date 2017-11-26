@@ -1,13 +1,8 @@
 
 #left-bar-col{
-  background-color: #2a314f;
   margin: 0px;
-  border-right: 5px solid #22273f;
 }
 
 #right-bar-col{
-  /*background-color: #ddffff;*/
-  background-color: #2a314f;
   margin: 0px;
-  border-left: 5px solid #22273f;
 }

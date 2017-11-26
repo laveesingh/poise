@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
-import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import {compose, withProps} from 'recompose';
 import ArticleBtn from '../../components/ArticleBtn';
 import Jumbotron from '../../components/Jumbotron';
@@ -12,8 +11,9 @@ import {Input, FormBtn} from '../../components/Form';
 
 import { Grid } from 'material-ui'
 import Leftbar from './Leftbar'
-import Rightbar from './Rightbar'
+import AddNotch from './AddNotch'
 import NotchesList from './NotchesList'
+import Navbar from './Navbar'
 import '../../styles/experience.css'
 
 import {
@@ -43,9 +43,6 @@ const MyMapComponent = compose(
     )}
   </GoogleMap>
 ));
-const responseGoogle = response => {
-  console.log(response);
-};
 
 
 class Experience extends React.PureComponent {
@@ -71,6 +68,9 @@ class Experience extends React.PureComponent {
   render() {
     return (
       <Grid container>
+        <Grid item lg={12} md={12} sm={12} >
+          <Navbar />
+        </Grid>
         <Grid item lg={2} md={2} sm={2} id='left-bar-col'>
           <Leftbar />
         </Grid>
@@ -82,27 +82,10 @@ class Experience extends React.PureComponent {
                 onMarkerClick={this.handleMarkerClick}
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} > 
-              <NotchesList />
-            </Grid>
           </Grid>
         </Grid>
         <Grid item lg={3} md={3} sm={3} id='right-bar-col'>
-          <Rightbar /> 
-        </Grid>
-        <Grid item lg={7} md={7} sm={7} >
-          <Container fluid>
-            <Row>
-              <Col size="md-3">
-                <GoogleLogin
-                  clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                  buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                />
-              </Col>
-            </Row>
-          </Container>
+          <NotchesList />
         </Grid>
         <Grid item lg={3} md={3} sm={3} > </Grid>
       </Grid>

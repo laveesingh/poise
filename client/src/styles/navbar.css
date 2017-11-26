@@ -1,0 +1,10 @@
+#appbar{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+#avatar-logo{
+  width: 70px;
+  height: 60px;
+  background-color: #37a000;
+}

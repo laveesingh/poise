@@ -5,7 +5,7 @@ export const notches = [
     location: [ '20.5', '78.9' ],
     headline: 'India',
     user: { 
-      name: 'lavee',
+      name: 'yam',
       id: '1'
     },
     experience: 'this hiking trip to india was a great experience'
@@ -15,7 +15,7 @@ export const notches = [
     location: [ '40.7', '74.0' ],
     headline: 'New York',
     user: { 
-      name: 'lavee',
+      name: 'yam',
       id: '1'
     },
     experience: 'this academic trip to new york was a great experience'

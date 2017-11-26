@@ -6,6 +6,7 @@
   "dependencies": {
     "google-map-react": "^0.25.0",
     "material-ui": "^1.0.0-beta.21",
+    "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-google-maps": "^9.2.2",
