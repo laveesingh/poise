@@ -12,7 +12,6 @@ var experienceSchema = new Schema({
   //img: {type: String, default: img_default},
   //url: {type: String, required: true},
   date: {type: Date, default: Date.now}
-  lat
 });
 
 var Experience = mongoose.model("Experience", experienceSchema);
