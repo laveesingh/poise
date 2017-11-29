@@ -6,7 +6,7 @@ import {
 } from 'material-ui'
 import { FormControl } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
-import '../../styles/rightbar.css'
+import '../styles/rightbar.css'
 
 class AddNotch extends React.Component{
 

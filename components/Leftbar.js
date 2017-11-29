@@ -7,7 +7,7 @@ import {
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import AddNotch from './AddNotch'
 import { GoogleLogin } from 'react-google-login' 
-import '../../styles/leftbar.css'
+import '../styles/leftbar.css'
 
 const responseGoogle = response => {
   console.log(response);

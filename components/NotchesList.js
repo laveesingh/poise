@@ -6,7 +6,7 @@ import {
 } from 'material-ui'
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
 
-import { notches } from '../../utils/dummyNotches'
+import { notches } from '../utils/dummyNotches'
 
 class NotchesList extends React.Component{
 

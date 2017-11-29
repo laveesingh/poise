@@ -4,7 +4,7 @@ import {
   Grid, AppBar, Toolbar, Avatar
 } from 'material-ui'
 import SearchNotches from './SearchNotches'
-import '../../styles/navbar.css'
+import '../styles/navbar.css'
 
 class Navbar extends React.Component{
 

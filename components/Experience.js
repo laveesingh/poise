@@ -4,7 +4,7 @@ import { Grid } from 'material-ui'
 import Leftbar from './Leftbar'
 import NotchesList from './NotchesList'
 import Navbar from './Navbar'
-import '../../styles/experience.css'
+import '../styles/experience.css'
 
 import {
   withScriptjs,

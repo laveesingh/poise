@@ -4,7 +4,7 @@ import {
   Grid, Typography, TextField, Button
 } from 'material-ui'
 import { MenuItem } from 'material-ui/Menu'
-import '../../styles/search_notches.css'
+import '../styles/search_notches.css'
 
 class SearchNotches extends React.Component{
 
