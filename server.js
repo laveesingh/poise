@@ -14,7 +14,9 @@ app.use(bodyParser.json())
 
 
 var experienceController = require('./controllers/experienceController.js')
+var userController = require('./controllers/userController.js')
 experienceController(app)
+userController(app)
 var Experience = require('./models/experience.js')
 var User = require('./models/user.js')
 
