@@ -16,7 +16,7 @@ module.exports = function (app) {
     var user = User.findOne({username: username}, function(error, user){
       if(error){
         response.json({
-          msg: 'no such user found with username "' + username + '"',
+          msg: 'you\'re not logged in, no such user found with username "' + username + '"',
           status: 1
         })
       }

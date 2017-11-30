@@ -8,9 +8,8 @@ var experienceSchema = new Schema({
   title: {type: String, required: true},
   userId: {type: Schema.Types.ObjectId, ref:"User"},
   description: {type: String, required: true},
-  location: {type: Schema.Types.ObjectId, ref: 'Location'}
-  //img: {type: String, default: img_default},
-  //url: {type: String, required: true},
+  location: {type: Schema.Types.ObjectId, ref: 'Location'},
+  imgUrl: [{type: String, default: img_default}],
   date: {type: Date, default: Date.now}
 });
 

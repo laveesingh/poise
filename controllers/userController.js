@@ -23,29 +23,55 @@ module.exports = function(app){
     })
   });
 
+  app.get('/user/all/', function(request, response){
+    User.find({}, function(error, users){
+      if(error){
+        response.json({ msg: error, status: 1, })
+        return 
+      }
+      response.json({ msg: 'successfully fetched users', status: 0, users: users })
+    })
+  })
+
   app.get('/user/search/:username', function(request, response){
-    //console.log('user search request', request.params)
     var username = request.params.username
-    var user = User.findOne({username: username}, function(error, user){
+    User.findOne({username: username}, function(error, user){
       if(error) {
-        response.json({
-          msg: error,
-          status: 1
-        })
+        response.json({ msg: error, status: 1 })
         return
       }
       if(user){
-        response.json({
-          msg: 'request successful',
-          status: 0,
-          user: user
-        })
+        response.json({ msg: 'request successful', status: 0, user: user })
       }else{
         response.json({
           msg: 'user not found',
           status: 1
         })
       }
+    })
+  })
+
+  app.post('/user/login/', function(request, response){
+    User.findOne({username: request.body.username}, function(error, user){
+      if(error){
+        response.json({ msg: error, status: 1, })
+        return
+      }
+      if(!user){
+        response.json({ msg: 'no user with that username', status: 1 })
+        return
+      }
+      user.comparePassword(request.body.password, function(error, isMatch){
+        if(error){
+          response.json({ msg: error, status: 1 })
+          return
+        }
+        if(isMatch){
+          response.json({ msg: 'user successfully authorized', status: 0, user: user })
+        }else{
+          response.json({ msg: 'password is incorrect', status: 1, })
+        }
+      })
     })
   })
 }
