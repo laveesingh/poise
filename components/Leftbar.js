@@ -78,46 +78,48 @@ class Leftbar extends React.Component{
     return(
       <Paper id='left-paper'>
         <Grid container id='cont-left-bar'>
-          <Grid item lg={12} md={12} sm={12} id='item-logo' >
+          <Grid item lg={12} md={12} sm={12} xs={12} id='item-logo' >
             <center>
               <Typography type='heading' component='h1' color='primary'>
                 POISE
               </Typography>
             </center>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12} >
             <Divider />
           </Grid>
-          <Grid item lg={12} md={12} sm={12} id='item-username'>
+          <Grid item lg={12} md={12} sm={6} xs={12} id='item-username'>
             <TextField fullWidth
               id='username' value={this.state.username}
               onChange={this.changeUsername}
               label='Username'
             />
           </Grid>
-          <Grid item lg={12} md={12} sm={12} id='item-password'>
+          <Grid item lg={12} md={12} sm={6} xs={12} id='item-password'>
             <TextField fullWidth
               id='password' value={this.state.password}
               onChange={this.changePassword}
               label='Password'
             />
           </Grid>
-          <Grid item lg={6} md={6} sm={6} >
-            <Button raised id='btn-login' onClick={this.login} color='primary'>
-              Login
-            </Button>
+          <Grid item lg={6} md={3} sm={2} xs={6} >
+            <center>
+              <Button raised id='btn-login' onClick={this.login} color='primary'>
+                Login
+              </Button>
+            </center>
           </Grid>
-          <Grid item lg={6} md={6} sm={6} >
+          <Grid item lg={6} md={3} sm={3}  xs={6}>
             <Button raised id='btn-signup' onClick={this.signup} color='primary'>
               Signup
             </Button>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={2} sm={2}  xs={4}>
             <Typography component='p' color='primary'>
               Or continue with google
             </Typography>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={4} sm={5}  xs={8}>
             <GoogleLogin
               clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
               buttonText="Google Login"

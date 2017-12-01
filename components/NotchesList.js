@@ -28,9 +28,9 @@ class NotchesList extends React.Component{
     return (
       <Paper id='right-paper' style={{padding: '10px'}}>
         <Grid container>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Grid container>
-              <Grid item lg={12} md={12} sm={12} >
+              <Grid item lg={12} md={12} sm={12} xs={12}>
                 <center>
                   <Typography type='heading' component='h1' color='primary'>
                     Notches List
@@ -39,46 +39,42 @@ class NotchesList extends React.Component{
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Divider />
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Grid container>
-              <Grid item lg={12} md={12} sm={12} >
+              <Grid item lg={1} md={1} sm={2} xs={1}> </Grid>
+              <Grid item lg={10} md={10} sm={8} xs={12}>
                 <Grid container>
-                  <Grid item lg={2} md={2} sm={2} > </Grid>
-                  <Grid item lg={8} md={8} sm={8} >
-                    <Grid container>
-                      { notches.map(notch => (
-                        <Grid item lg={12} md={12} sm={12} >
-                          <Card>
-                            <CardHeader
-                              avatar={
-                                <Avatar aria-label='Recipe' style={{ backgroundColor: '#333333'}}>
-                                  {notch.user.name[0].toUpperCase()}
-                                </Avatar>
-                              }
-                              title={notch.user.name.toUpperCase()}
-                              subheader={notch.location[0] + " " + notch.location[1]}
-                              style={{backgroundColor: '#37a000'}}
-                            />
-                            <CardContent>
-                              <Typography component='p'>
-                                Category: {notch.category}
-                              </Typography>
-                              <Typography component='p'>
-                                Experience: {notch.experience}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                      )) }
-                      
+                  { notches.map(notch => (
+                    <Grid item lg={12} md={6} sm={6} xs={12}>
+                      <Card>
+                        <CardHeader
+                          avatar={
+                            <Avatar aria-label='Recipe' style={{ backgroundColor: '#333333'}}>
+                              {notch.user.name[0].toUpperCase()}
+                            </Avatar>
+                          }
+                          title={notch.user.name.toUpperCase()}
+                          subheader={notch.location[0] + " " + notch.location[1]}
+                          style={{backgroundColor: '#37a000'}}
+                        />
+                        <CardContent>
+                          <Typography component='p'>
+                            Category: {notch.category}
+                          </Typography>
+                          <Typography component='p'>
+                            Experience: {notch.experience}
+                          </Typography>
+                        </CardContent>
+                      </Card>
                     </Grid>
-                  </Grid>
-                  <Grid item lg={2} md={2} sm={2} > </Grid>
+                  )) }
+                  
                 </Grid>
               </Grid>
+              <Grid item lg={1} md={1} sm={2} > </Grid>
             </Grid>
           </Grid>
         </Grid>
