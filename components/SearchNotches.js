@@ -39,14 +39,14 @@ class SearchNotches extends React.Component{
       <Grid container>
         <Grid item lg={12} md={12} sm={12} >
           <Grid container>
-            <Grid item lg={2} md={2} sm={2} >
+            <Grid item lg={2} md={2} sm={2} xs={3} >
               <center>
                 <Typography component='p' type='body' style={{marginTop: '18px'}}>
                   SEARCH BY
                 </Typography>
               </center>
             </Grid>
-            <Grid item lg={2} md={2} sm={2} >
+            <Grid item lg={2} md={2} sm={2} xs={3}>
               <TextField fullWidth select
                 id='search-by'
                 value={this.state.searchBy}
@@ -58,14 +58,14 @@ class SearchNotches extends React.Component{
                 <MenuItem key='keyword' value='keyword'>Keyword</MenuItem>
               </TextField>
             </Grid>
-            <Grid item lg={4} md={4} sm={4} >
+            <Grid item lg={4} md={4} sm={4} xs={3}>
               <TextField id='search-box' fullWidth
                 value={this.state.searchKey}
                 onChange={this.changeSearchKey}
                 label='search'
               />
             </Grid>
-            <Grid item lg={4} md={4} sm={4} >
+            <Grid item lg={4} md={4} sm={4} xs={3}>
               <Button raised id='search-button'
                 color='primary' onClick={this.search}>
                 Search

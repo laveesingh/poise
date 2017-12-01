@@ -69,7 +69,7 @@ class Leftbar extends React.Component{
   }
 
   closeAddNotch(){
-    this.setstate({
+    this.setState({
       addNotchOpened: false
     })
   }
@@ -130,7 +130,7 @@ class Leftbar extends React.Component{
           <Grid item lg={12} md={12} sm={12} >
             <Divider />
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Button onClick={this.openGuide} color='primary'>
               How it works
             </Button>
@@ -157,7 +157,7 @@ class Leftbar extends React.Component{
               </Grid>
             </Dialog>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Button onClick={this.openAddNotch} color='primary'>
               Add new notch
             </Button>
