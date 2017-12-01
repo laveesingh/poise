@@ -69,7 +69,7 @@ class Leftbar extends React.Component{
   }
 
   closeAddNotch(){
-    this.setstate({
+    this.setState({
       addNotchOpened: false
     })
   }
