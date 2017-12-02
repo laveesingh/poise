@@ -6,6 +6,7 @@ import {
 } from 'material-ui'
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import AddNotch from './AddNotch'
+import Signup from './Signup'
 import { GoogleLogin } from 'react-google-login' 
 import '../styles/leftbar.css'
 
@@ -20,11 +21,12 @@ class Leftbar extends React.Component{
     this.changeUsername = this.changeUsername.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.login = this.login.bind(this)
-    this.signup = this.signup.bind(this)
     this.openGuide = this.openGuide.bind(this)
     this.closeGuide = this.closeGuide.bind(this)
     this.openAddNotch = this.openAddNotch.bind(this)
     this.closeAddNotch = this.closeAddNotch.bind(this)
+    this.openSignupDialog = this.openSignupDialog.bind(this)
+    this.closeSignupDialog = this.closeSignupDialog.bind(this)
 
     this.state = {
     }
@@ -46,8 +48,16 @@ class Leftbar extends React.Component{
     console.log('going to login')
   }
 
-  signup(){
-    console.log('going to signup')
+  openSignupDialog(){
+    this.setState({
+      signupDialogOpened: true
+    })
+  }
+
+  closeSignupDialog(){
+    this.setState({
+      signupDialogOpened: false
+    })
   }
 
   openGuide(){
@@ -99,7 +109,7 @@ class Leftbar extends React.Component{
             <TextField fullWidth
               id='password' value={this.state.password}
               onChange={this.changePassword}
-              label='Password'
+              label='Password' type='password'
             />
           </Grid>
           <Grid item lg={6} md={3} sm={2} xs={6} >
@@ -110,9 +120,13 @@ class Leftbar extends React.Component{
             </center>
           </Grid>
           <Grid item lg={6} md={3} sm={3}  xs={6}>
-            <Button raised id='btn-signup' onClick={this.signup} color='primary'>
+            <Button raised id='btn-signup' onClick={this.openSignupDialog} color='primary'>
               Signup
             </Button>
+            <Dialog
+              onRequestClose={this.closeSignupDialog} open={this.state.signupDialogOpened} id='signup-dialog'>
+              <Signup />
+            </Dialog>
           </Grid>
           <Grid item lg={12} md={2} sm={2}  xs={4}>
             <Typography component='p' color='primary'>
