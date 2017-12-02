@@ -52,6 +52,7 @@ module.exports = function(app){
   })
 
   app.post('/user/login/', function(request, response){
+    console.log('login requested')
     User.findOne({username: request.body.username}, function(error, user){
       if(error){
         response.json({ msg: error, status: 1, })
