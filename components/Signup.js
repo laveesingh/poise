@@ -4,6 +4,8 @@ import {
   Grid, Paper, TextField, Typography,
   Divider, Button
 } from 'material-ui'
+import { $SERVER } from '../utils/server'
+import axios from 'axios'
 
 class Signup extends React.Component{
 
@@ -12,6 +14,7 @@ class Signup extends React.Component{
     this.changeUsername = this.changeUsername.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.changeEmail = this.changeEmail.bind(this)
+    this.signup = this.signup.bind(this)
     this.state = {
     }
   }
@@ -33,6 +36,22 @@ class Signup extends React.Component{
     this.setState({
       email: event.target.value
     })
+  }
+
+  signup(event){
+    var request_url = $SERVER + '/user/create/'
+    console.log('requesting ', request_url)
+    axios.post(request_url, {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password
+    })
+      .then(function(response){
+        console.log(response)
+      })
+      .catch(function(error){
+        console.log(error)
+      })
   }
 
   render(){
@@ -58,7 +77,7 @@ class Signup extends React.Component{
                   <TextField fullWidth
                     id='password' value={this.state.password}
                     onChange={this.changePassword}
-                    label='Password'
+                    label='Password' type='password'
                   />
                 </Grid>
                 <Grid item lg={12} md={12} sm={6} xs={12} id='item-email'>

@@ -109,7 +109,7 @@ class Leftbar extends React.Component{
             <TextField fullWidth
               id='password' value={this.state.password}
               onChange={this.changePassword}
-              label='Password'
+              label='Password' type='password'
             />
           </Grid>
           <Grid item lg={6} md={3} sm={2} xs={6} >
