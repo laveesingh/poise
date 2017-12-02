@@ -11,6 +11,7 @@ import { GoogleLogin } from 'react-google-login'
 import '../styles/leftbar.css'
 import axios from 'axios'
 import { $SERVER } from '../utils/server'
+import Cookies from 'js-cookie'
 
 const responseGoogle = response => {
   console.log(response);
@@ -35,6 +36,17 @@ class Leftbar extends React.Component{
       userLoggedIn: false,
       user: {},
       loginError: '',
+    }
+  }
+
+  componentDidMount(){
+    if(Cookies.get('username')){
+      this.setState({
+        userLoggedIn: true,
+        user: {
+          username: Cookies.get('username')
+        }
+      })
     }
   }
 
@@ -74,6 +86,8 @@ class Leftbar extends React.Component{
           }, 5000)
           return
         }
+        //Cookies.set('session_token', response.session_token)
+        Cookies.set('username', response.user.username)
         _this.setState({
           userLoggedIn: true,
           user: {
