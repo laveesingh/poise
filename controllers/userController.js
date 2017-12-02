@@ -68,11 +68,25 @@ module.exports = function(app){
           return
         }
         if(isMatch){
-          response.json({ msg: 'user successfully authorized', status: 0, user: user })
+          //var session_token = generate_session_token()
+          //request.session[session_token] = user.username
+          //request.session.save()
+          response.json({ msg: 'user successfully authorized', status: 0,
+            user: user })
         }else{
           response.json({ msg: 'password is incorrect', status: 1, })
         }
       })
     })
   })
+}
+
+function generate_session_token(){
+  var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  var session_token = "";
+  for(var i = 0; i < 30; i++){
+    var index = Math.floor(Math.random()*100) % charset.length;
+    session_token += charset[index];
+  }
+  console.log(session_token)
 }

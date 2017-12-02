@@ -5,7 +5,7 @@ import Leftbar from './Leftbar'
 import NotchesList from './NotchesList'
 import Navbar from './Navbar'
 import '../styles/experience.css'
-
+import Cookies from 'js-cookie'
 import {
   withScriptjs,
   withGoogleMap,
