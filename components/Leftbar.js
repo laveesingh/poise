@@ -9,6 +9,8 @@ import AddNotch from './AddNotch'
 import Signup from './Signup'
 import { GoogleLogin } from 'react-google-login' 
 import '../styles/leftbar.css'
+import axios from 'axios'
+import { $SERVER } from '../utils/server'
 
 const responseGoogle = response => {
   console.log(response);
@@ -27,8 +29,12 @@ class Leftbar extends React.Component{
     this.closeAddNotch = this.closeAddNotch.bind(this)
     this.openSignupDialog = this.openSignupDialog.bind(this)
     this.closeSignupDialog = this.closeSignupDialog.bind(this)
+    this.tellState = this.tellState.bind(this)
 
     this.state = {
+      userLoggedIn: false,
+      user: {},
+      loginError: '',
     }
   }
 
@@ -44,8 +50,37 @@ class Leftbar extends React.Component{
     })
   }
 
+
+  tellState(){
+    console.log('current state is ', this.state)
+  }
+
   login(){
-    console.log('going to login')
+    var _this = this;
+    axios.post($SERVER + '/user/login/', {
+      username: this.state.username,
+      password: this.state.password
+    })
+      .then((response) => response.data)
+      .then(function(response){
+        if(response.status){
+          _this.setState({
+            loginError: response.msg
+          })
+          setInterval(function(){
+            _this.setState({
+              loginError: ''
+            })
+          }, 5000)
+          return
+        }
+        _this.setState({
+          userLoggedIn: true,
+          user: {
+            username: response.user.username
+          }
+        })
+      })
   }
 
   openSignupDialog(){
@@ -98,48 +133,74 @@ class Leftbar extends React.Component{
           <Grid item lg={12} md={12} sm={12} xs={12} >
             <Divider />
           </Grid>
-          <Grid item lg={12} md={12} sm={6} xs={12} id='item-username'>
-            <TextField fullWidth
-              id='username' value={this.state.username}
-              onChange={this.changeUsername}
-              label='Username'
-            />
-          </Grid>
-          <Grid item lg={12} md={12} sm={6} xs={12} id='item-password'>
-            <TextField fullWidth
-              id='password' value={this.state.password}
-              onChange={this.changePassword}
-              label='Password' type='password'
-            />
-          </Grid>
-          <Grid item lg={6} md={3} sm={2} xs={6} >
-            <center>
-              <Button raised id='btn-login' onClick={this.login} color='primary'>
-                Login
-              </Button>
-            </center>
-          </Grid>
-          <Grid item lg={6} md={3} sm={3}  xs={6}>
-            <Button raised id='btn-signup' onClick={this.openSignupDialog} color='primary'>
-              Signup
-            </Button>
-            <Dialog
-              onRequestClose={this.closeSignupDialog} open={this.state.signupDialogOpened} id='signup-dialog'>
-              <Signup />
-            </Dialog>
-          </Grid>
-          <Grid item lg={12} md={2} sm={2}  xs={4}>
-            <Typography component='p' color='primary'>
-              Or continue with google
-            </Typography>
-          </Grid>
-          <Grid item lg={12} md={4} sm={5}  xs={8}>
-            <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-              buttonText="Google Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-            />
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            {
+              this.state.userLoggedIn
+              ? (
+                <h1> You are logged in {this.state.user.username}.</h1>
+              )
+              : (
+                <Grid container id='registration'>
+                  <Grid item lg={12} md={12} sm={12} >
+                  </Grid>
+                  <Grid item lg={12} md={12} sm={6} xs={12} id='item-username'>
+                    <TextField fullWidth
+                      id='username' value={this.state.username}
+                      onChange={this.changeUsername}
+                      label='Username'
+                    />
+                  </Grid>
+                  {this.state.loginError != '' 
+                      ? (
+                        <Grid item lg={12} md={12} sm={12} >
+                          <Typography component='p' style={{ color: 'red' }}>
+                            { this.state.loginError }
+                          </Typography>
+                        </Grid>
+                      )
+                      : '' 
+                  }
+                  <Grid item lg={12} md={12} sm={6} xs={12} id='item-password'>
+                    <TextField fullWidth
+                      id='password' value={this.state.password}
+                      onChange={this.changePassword}
+                      label='Password' type='password'
+                    />
+                  </Grid>
+                  <Grid item lg={6} md={3} sm={2} xs={6} >
+                    <center>
+                      <Button raised id='btn-login' onClick={this.login} color='primary'>
+                        Login
+                      </Button>
+                    </center>
+                  </Grid>
+                  <Grid item lg={6} md={3} sm={3}  xs={6}>
+                    <Button raised id='btn-signup' onClick={this.openSignupDialog} color='primary'>
+                      Signup
+                    </Button>
+                    <Dialog
+                      onRequestClose={this.closeSignupDialog} open={this.state.signupDialogOpened} id='signup-dialog'>
+                      <Signup />
+                    </Dialog>
+                  </Grid>
+                  <Grid item lg={12} md={2} sm={2}  xs={4}>
+                    <Typography component='p' color='primary'>
+                      Or continue with google
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={12} md={4} sm={5}  xs={8}>
+                    <GoogleLogin
+                      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                      buttonText="Google Login"
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
+                    />
+                  </Grid>
+                </Grid>
+              )
+
+
+            }
           </Grid>
           <Grid item lg={12} md={12} sm={12} >
             <Divider />
