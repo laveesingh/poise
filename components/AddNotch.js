@@ -29,6 +29,14 @@ class AddNotch extends React.Component{
     }
   }
 
+
+
+  componentDidMount(){
+    this.setState({
+      latitude: this.props.markerPosition.latitude,
+      longitude: this.props.markerPosition.longitude
+    })
+  }
   changeHeadline(event){
     this.setState({
       headline: event.target.value

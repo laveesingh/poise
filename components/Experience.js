@@ -49,6 +49,7 @@ class Experience extends React.Component {
       user: {},
       userLoggedIn: false,
       signupDialogOpened: false,
+      markerPosition: {}
     };
     //setInterval(()=>console.log("current user is", this.state.user), 3000)
   }
@@ -108,6 +109,12 @@ class Experience extends React.Component {
   handleMapClick(event){
     //console.log("position:", event.latLng.lat())
     console.log('position:', event.latLng.lat(), event.latLng.lng())
+    this.setState({
+      markerPosition: {
+        latitude: event.latLng.lat(),
+        longitude: event.latLng.lng()
+      }
+    })
   }
 
   render() {
@@ -125,6 +132,7 @@ class Experience extends React.Component {
             signupDialogOpened={this.state.signupDialogOpened}
             openSignupDialog={this.openSignupDialog}
             closeSignupDialog={this.closeSignupDialog}
+            markerPosition={this.state.markerPosition}
           />
         </Grid>
         <Grid item lg={7} md={6} sm={12} xs={12} id='mid-col'>
