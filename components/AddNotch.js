@@ -8,6 +8,7 @@ import { FormControl } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
 import '../styles/rightbar.css'
 import { $SERVER } from '../utils/server'
+import axios from 'axios'
 
 class AddNotch extends React.Component{
 
@@ -67,18 +68,18 @@ class AddNotch extends React.Component{
 
   addNotch(){
     var notchData = {
+      username: this.props.username,
       category: this.state.category,
       location: {
         latitude: this.state.latitude,
         longitude: this.state.longitude
       },
-      headline: this.state.headline,
-      experience: this.state.experience,
-      img: this.state.notchImage,
+      title: this.state.headline,
+      description: this.state.experience,
+      imgUrl: "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
+      //file: this.state.notchImage,
     }
-    axios.post($SERVER + '/experience/create/', {
-      data: notchData
-    })
+    axios.post($SERVER + '/experience/create/', notchData, {headers: {'Content-Type': false}})
       .then(response => response.data)
       .then(function(response){
         console.log('response from server:', response)
@@ -156,7 +157,7 @@ class AddNotch extends React.Component{
               />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <input type='file' onChange={this.uploadNotchImage}/>
+              <input type='file' onChange={this.uploadNotchImage} name="notchImg" />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <center>

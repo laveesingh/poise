@@ -24,7 +24,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap,
 )(props => (
-  <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}}>
+  <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}} onClick={props.handleMapClick}>
     {props.isMarkerShown && (
       <Marker
         position={{lat: -34.397, lng: 150.644}}
@@ -43,6 +43,7 @@ class Experience extends React.Component {
     this.logoutUserToRoot = this.logoutUserToRoot.bind(this)
     this.openSignupDialog = this.openSignupDialog.bind(this)
     this.closeSignupDialog = this.closeSignupDialog.bind(this)
+    this.handleMapClick = this.handleMapClick.bind(this)
     this.state = {
       isMarkerShown: false,
       user: {},
@@ -104,6 +105,11 @@ class Experience extends React.Component {
     this.delayedShowMarker();
   };
 
+  handleMapClick(event){
+    //console.log("position:", event.latLng.lat())
+    console.log('position:', event.latLng.lat(), event.latLng.lng())
+  }
+
   render() {
     return (
       <Grid container>
@@ -127,6 +133,7 @@ class Experience extends React.Component {
               <MyMapComponent
                 isMarkerShown={this.state.isMarkerShown}
                 onMarkerClick={this.handleMarkerClick}
+                handleMapClick={this.handleMapClick}
               />
             </Grid>
           </Grid>
