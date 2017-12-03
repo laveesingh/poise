@@ -41,13 +41,19 @@ class Signup extends React.Component{
   signup(event){
     var request_url = $SERVER + '/user/create/'
     console.log('requesting ', request_url)
+    var _this = this;
     axios.post(request_url, {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
     })
+      .then(response => response.data)
       .then(function(response){
-        console.log(response)
+        console.log('response from server', response)
+        if(response.status == 0){
+          _this.props.loginUserToRoot(response.user)
+          _this.props.closeSignupDialog()
+        }
       })
       .catch(function(error){
         console.log(error)
