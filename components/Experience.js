@@ -36,14 +36,63 @@ const MyMapComponent = compose(
 
 
 class Experience extends React.Component {
-  state = {
-    isMarkerShown: false,
-  };
+
+  constructor(props){
+    super(props)
+    this.loginUserToRoot = this.loginUserToRoot.bind(this)
+    this.logoutUserToRoot = this.logoutUserToRoot.bind(this)
+    this.openSignupDialog = this.openSignupDialog.bind(this)
+    this.closeSignupDialog = this.closeSignupDialog.bind(this)
+    this.state = {
+      isMarkerShown: false,
+      user: {},
+      userLoggedIn: false,
+      signupDialogOpened: false,
+    };
+    //setInterval(()=>console.log("current user is", this.state.user), 3000)
+  }
+
 
   componentDidMount() {
     this.delayedShowMarker();
+    if(Cookies.get('username')){
+      this.setState({
+        userLoggedIn: true,
+        user: {
+          username: Cookies.get('username')
+        }
+      })
+    }
   }
 
+  loginUserToRoot(user){
+    this.setState({
+      userLoggedIn: true,
+      user: {
+        username: user.username
+      }
+    })
+    Cookies.set('username', user.username)
+  }
+
+  logoutUserToRoot(){
+    this.setState({
+      userLoggedIn: false,
+      user: {}
+    })
+    Cookies.remove('username')
+  }
+
+  openSignupDialog(){
+    this.setState({
+      signupDialogOpened: true,
+    })
+  }
+  closeSignupDialog(){
+    this.setState({
+      signupDialogOpened: false,
+    })
+  }
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({isMarkerShown: true});
@@ -62,7 +111,15 @@ class Experience extends React.Component {
           <Navbar />
         </Grid>
         <Grid item lg={2} md={6} sm={12} xs={12} id='left-bar-col'>
-          <Leftbar />
+          <Leftbar 
+            loginUserToRoot={this.loginUserToRoot} 
+            userLoggedIn={this.state.userLoggedIn} 
+            user={this.state.user} 
+            logoutUserToRoot={this.logoutUserToRoot} 
+            signupDialogOpened={this.state.signupDialogOpened}
+            openSignupDialog={this.openSignupDialog}
+            closeSignupDialog={this.closeSignupDialog}
+          />
         </Grid>
         <Grid item lg={7} md={6} sm={12} xs={12} id='mid-col'>
           <Grid container>

@@ -41,14 +41,6 @@ class Leftbar extends React.Component{
   }
 
   componentDidMount(){
-    if(Cookies.get('username')){
-      this.setState({
-        userLoggedIn: true,
-        user: {
-          username: Cookies.get('username')
-        }
-      })
-    }
   }
 
   changeUsername(event){
@@ -80,7 +72,7 @@ class Leftbar extends React.Component{
           _this.setState({
             loginError: response.msg
           })
-          setInterval(function(){
+          setTimeout(function(){
             _this.setState({
               loginError: ''
             })
@@ -88,13 +80,14 @@ class Leftbar extends React.Component{
           return
         }
         //Cookies.set('session_token', response.session_token)
-        Cookies.set('username', response.user.username)
+        //Cookies.set('username', response.user.username)
         _this.setState({
           userLoggedIn: true,
           user: {
             username: response.user.username
           }
         })
+        _this.props.loginUserToRoot(response.user)
       })
   }
 
@@ -103,7 +96,7 @@ class Leftbar extends React.Component{
       user: {},
       userLoggedIn: false,
     })
-    Cookies.remove('username')
+    this.props.logoutUserToRoot()
   }
   openSignupDialog(){
     this.setState({
@@ -157,13 +150,13 @@ class Leftbar extends React.Component{
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             {
-              this.state.userLoggedIn
+              this.props.userLoggedIn
               ? (
                 <Grid container>
                   <Grid item lg={12} md={12} sm={12} >
                     <center>
                       <Typography component='h2' type='headline' style={{color: '#37a000'}}>
-                        {this.state.user.username}
+                        {this.props.user.username}
                       </Typography>
                       <Typography component='p' type='body' style={{color: '#37a000'}}>(Logged In)</Typography>
                     </center>
@@ -222,12 +215,15 @@ class Leftbar extends React.Component{
                     </center>
                   </Grid>
                   <Grid item lg={6} md={3} sm={3}  xs={6}>
-                    <Button raised id='btn-signup' onClick={this.openSignupDialog} color='primary'>
+                    <Button raised id='btn-signup' onClick={this.props.openSignupDialog} color='primary'>
                       Signup
                     </Button>
                     <Dialog
-                      onRequestClose={this.closeSignupDialog} open={this.state.signupDialogOpened} id='signup-dialog'>
-                      <Signup />
+                      onRequestClose={this.props.closeSignupDialog} open={this.props.signupDialogOpened} id='signup-dialog'>
+                      <Signup 
+                        loginUserToRoot={this.props.loginUserToRoot}
+                        closeSignupDialog={this.props.closeSignupDialog}
+                      />
                     </Dialog>
                   </Grid>
                   <Grid item lg={12} md={2} sm={2}  xs={4}>
