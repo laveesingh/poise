@@ -24,6 +24,7 @@ class Leftbar extends React.Component{
     this.changeUsername = this.changeUsername.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
     this.openGuide = this.openGuide.bind(this)
     this.closeGuide = this.closeGuide.bind(this)
     this.openAddNotch = this.openAddNotch.bind(this)
@@ -97,6 +98,13 @@ class Leftbar extends React.Component{
       })
   }
 
+  logout(){
+    this.setState({
+      user: {},
+      userLoggedIn: false,
+    })
+    Cookies.remove('username')
+  }
   openSignupDialog(){
     this.setState({
       signupDialogOpened: true
@@ -151,7 +159,32 @@ class Leftbar extends React.Component{
             {
               this.state.userLoggedIn
               ? (
-                <h1> You are logged in {this.state.user.username}.</h1>
+                <Grid container>
+                  <Grid item lg={12} md={12} sm={12} >
+                    <center>
+                      <Typography component='h2' type='headline' style={{color: '#37a000'}}>
+                        {this.state.user.username}
+                      </Typography>
+                      <Typography component='p' type='body' style={{color: '#37a000'}}>(Logged In)</Typography>
+                    </center>
+                  </Grid>
+                  <Grid item lg={12} md={12} sm={12} >
+                    <center>
+                      <Button color='primary' fullWidth >
+                        Check Your Notches
+                      </Button>
+                    </center>
+                  </Grid>
+                  <Grid item lg={12} md={12} sm={12} >
+                    <center>
+                      <Button color='primary' fullWidth 
+                        onClick={this.logout}
+                      >
+                        Logout
+                      </Button>
+                    </center>
+                  </Grid>
+                </Grid>
               )
               : (
                 <Grid container id='registration'>
