@@ -75,19 +75,17 @@ class AddNotch extends React.Component{
   }
 
   addNotch(){
-    var notchData = {
+
+    var imgUrl = "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
+    var request_url = $SERVER + '/experience/create/'
+    axios.post(request_url, {
       username: this.props.username,
-      category: this.state.category,
-      location: {
-        latitude: this.state.latitude,
-        longitude: this.state.longitude
-      },
       title: this.state.headline,
       description: this.state.experience,
-      imgUrl: "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
-      //file: this.state.notchImage,
-    }
-    axios.post($SERVER + '/experience/create/', notchData, {headers: {'Content-Type': false}})
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      imgUrl: imgUrl,
+    })
       .then(response => response.data)
       .then(function(response){
         console.log('response from server:', response)

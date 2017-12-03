@@ -16,7 +16,6 @@ module.exports = function (app) {
   app.post('/experience/create/', function(request, response){
     console.log('request:', request.body)
     var experience = new Experience(request.body)
-    //console.log('imgUrl:', imgUrl)
     var username = request.body.username
     var user = User.findOne({username: username}, function(error, user){
       if(error){
