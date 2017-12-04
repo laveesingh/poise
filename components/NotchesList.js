@@ -50,12 +50,12 @@ class NotchesList extends React.Component{
     axios.get(request_url)
       .then(response => response.data)
       .then(response => {
-        console.log('response from server:', response.data)
+        //console.log('response from server:', response.data)
         this.setState({
-          complexNotch: response.data,
+          complexNotch: response.data[0],
           complexNotchOpened: true,
         })
-        setInterval(()=>console.log('current state:', this.state), 5)
+        //setInterval(()=>console.log('current state:', this.state), 5)
       })
   }
 
@@ -118,7 +118,7 @@ class NotchesList extends React.Component{
                         onRequestClose={this.closeComplexNotch}
                         open={this.state.complexNotchOpened} >
                         {
-                          this.state.complexnotch 
+                          this.state.complexNotch
                           ? (
                             <NotchCard 
                               avatarLetter={this.state.complexNotch.username[0].toUpperCase()}
