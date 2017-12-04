@@ -7,14 +7,29 @@ import {
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
 
 import { notches } from '../utils/dummyNotches'
+import axios from 'axios'
+import { $SERVER } from '../utils/server'
 
 class NotchesList extends React.Component{
+
+  componentDidMount(){
+    var request_url = $SERVER + '/experience/list/all'
+    axios.get(request_url)
+      .then(response => response.data)
+      .then(response => {
+        //console.log('response from server:', response.data)
+        this.setState({
+          notchesList: response.data
+        })
+      })
+  }
 
   constructor(props){
     super(props)
     this.changeSearchBy = this.changeSearchBy.bind(this)
     this.state = {
-      searchBy: 'radius'
+      searchBy: 'radius',
+      notchesList: []
     }
   }
 
@@ -47,25 +62,28 @@ class NotchesList extends React.Component{
               <Grid item lg={1} md={1} sm={2} xs={1}> </Grid>
               <Grid item lg={10} md={10} sm={8} xs={12}>
                 <Grid container>
-                  { notches.map(notch => (
+                  { this.state.notchesList.map(notch => (
                     <Grid item lg={12} md={6} sm={6} xs={12}>
                       <Card>
                         <CardHeader
                           avatar={
                             <Avatar aria-label='Recipe' style={{ backgroundColor: '#333333'}}>
-                              {notch.user.name[0].toUpperCase()}
+                              {notch.username[0].toUpperCase()}
                             </Avatar>
                           }
-                          title={notch.user.name.toUpperCase()}
-                          subheader={notch.location[0] + " " + notch.location[1]}
+                          title={notch.username.toUpperCase()}
+                          subheader={"Location: (" + notch.latitude.toFixed(2) + ", " + notch.longitude.toFixed(2) + ")"}
                           style={{backgroundColor: '#37a000'}}
                         />
                         <CardContent>
-                          <Typography component='p'>
-                            Category: {notch.category}
+                          <Typography component='h6' type='headline'>
+                            Title: { notch.title } 
                           </Typography>
                           <Typography component='p'>
-                            Experience: {notch.experience}
+                            Category: {" Standard"}
+                          </Typography>
+                          <Typography component='p'>
+                            Experience: {notch.description.substr(0, 30) + "..."}
                           </Typography>
                         </CardContent>
                       </Card>

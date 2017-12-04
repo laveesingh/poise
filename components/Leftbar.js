@@ -7,6 +7,7 @@ import {
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import AddNotch from './AddNotch'
 import Signup from './Signup'
+import NotchCard from './NotchCard'
 import { GoogleLogin } from 'react-google-login' 
 import '../styles/leftbar.css'
 import axios from 'axios'
@@ -32,6 +33,8 @@ class Leftbar extends React.Component{
     this.openSignupDialog = this.openSignupDialog.bind(this)
     this.closeSignupDialog = this.closeSignupDialog.bind(this)
     this.tellState = this.tellState.bind(this)
+    this.openPersonalNotches = this.openPersonalNotches.bind(this)
+    this.closePersonalNotches = this.closePersonalNotches.bind(this)
 
     this.state = {
       userLoggedIn: false,
@@ -41,6 +44,26 @@ class Leftbar extends React.Component{
   }
 
   componentDidMount(){
+
+  }
+
+  openPersonalNotches(){
+    var request_url = $SERVER + '/experience/list_by_user/' + this.props.user.username + '/'
+    console.log('request url:', request_url)
+    axios(request_url)
+      .then(response => response.data)
+      .then(response => {
+        this.setState({
+          personalNotches: response.data,
+          personalNotchesOpened: true
+        })
+      })
+  }
+
+  closePersonalNotches(){
+    this.setState({
+      personalNotchesOpened: false
+    })
   }
 
   changeUsername(event){
@@ -163,10 +186,27 @@ class Leftbar extends React.Component{
                   </Grid>
                   <Grid item lg={12} md={12} sm={12} >
                     <center>
-                      <Button color='primary' fullWidth >
+                      <Button color='primary' fullWidth onClick={this.openPersonalNotches}>
                         Check Your Notches
                       </Button>
                     </center>
+                    <Dialog 
+                      onRequestClose={this.closePersonalNotches}
+                      open={this.state.personalNotchesOpened} 
+                      style={{padding: '20px'}}
+                    > 
+                      {
+                        this.state.personalNotches && this.state.personalNotches.map((notch) => (
+                          <NotchCard 
+                            avatarLetter={notch.username[0].toUpperCase()}
+                            title={notch.title}
+                            description={notch.description}
+                            imgUrl={notch.imgUrl}
+                            timestamp={notch.date}
+                          />
+                        ))
+                      }
+                    </Dialog>
                   </Grid>
                   <Grid item lg={12} md={12} sm={12} >
                     <center>
