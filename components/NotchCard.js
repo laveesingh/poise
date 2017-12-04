@@ -17,11 +17,6 @@ const NotchCard = (props) => (
           {props.avatarLetter}
         </Avatar>
       }
-      action={
-        <IconButton>
-          <MoreVertIcon />
-        </IconButton>
-      }
       title={props.title}
       subheader={props.timestamp}
     />
