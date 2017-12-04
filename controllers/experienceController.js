@@ -23,7 +23,12 @@ module.exports = function (app) {
       else console.log('successfully uploaded image file:', imgPath)
     })
     var experience = new Experience({
-      ...request.body,
+      category: request.body.category,
+      username: request.body.username,
+      title: request.body.title,
+      description: request.body.description,
+      latitude: request.body.latitude,
+      longitude: request.body.longitude,
       imgUrl: imgPath
     })
     var username = request.body.username
