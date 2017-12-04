@@ -119,7 +119,7 @@ class Experience extends React.Component {
 
   render() {
     return (
-      <Grid container>
+      <Grid container >
         <Grid item lg={12} md={12} sm={12} >
           <Navbar />
         </Grid>
@@ -135,7 +135,9 @@ class Experience extends React.Component {
             markerPosition={this.state.markerPosition}
           />
         </Grid>
-        <Grid item lg={7} md={6} sm={12} xs={12} id='mid-col'>
+        <Grid item lg={7} md={6} sm={12} xs={12} 
+          id='mid-col'
+        >
           <Grid container>
             <Grid item lg={12} md={12} sm={12} >
               <MyMapComponent
@@ -146,8 +148,12 @@ class Experience extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item lg={3} md={10} sm={12} xs={12} id='right-bar-col'>
-          <NotchesList />
+        <Grid item lg={3} md={10} sm={12} xs={12} 
+          id='right-bar-col'
+          style={{float: 'right', height: '700px', overflowY: 'auto'}}
+        >
+          <NotchesList 
+          />
         </Grid>
       </Grid>
     );
