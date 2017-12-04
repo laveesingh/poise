@@ -18,14 +18,14 @@ class AddNotch extends React.Component{
     this.changeLatitude = this.changeLatitude.bind(this)
     this.changeLongitude = this.changeLongitude.bind(this)
     this.addNotch = this.addNotch.bind(this)
-    this.uploadNotchImage = this.uploadNotchImage.bind(this)
+    this.uploadFile = this.uploadFile.bind(this)
     this.changeHeadline = this.changeHeadline.bind(this)
     this.changeExperience = this.changeExperience.bind(this)
     this.state = {
       category: 'all',
       headline: '',
       experience: '',
-      notchImage: '',
+      file: '',
     }
   }
 
@@ -49,10 +49,10 @@ class AddNotch extends React.Component{
     })
   }
 
-  uploadNotchImage(event){
+  uploadFile(event){
     var file = event.target.files[0];
     this.setState({
-      notchImage: file
+      file: file
     })
   }
 
@@ -76,17 +76,21 @@ class AddNotch extends React.Component{
 
   addNotch(){
     var _this = this;
-    var imgUrl = "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
     var request_url = $SERVER + '/experience/create/'
-    axios.post(request_url, {
-      username: this.props.username,
-      title: this.state.headline,
-      description: this.state.experience,
-      latitude: this.state.latitude,
-      longitude: this.state.longitude,
-      imgUrl: imgUrl,
-      category: this.state.category
-    })
+    const formData = new FormData()
+    formData.append('file', this.state.file)
+    formData.append('username', this.props.username)
+    formData.append('title', this.state.headline)
+    formData.append('description', this.state.experience)
+    formData.append('latitude', this.state.latitude)
+    formData.append('longitude', this.state.longitude)
+    formData.append('category', this.state.category)
+    const config = {
+      headers: {
+        'content-type':'multipart/form-data'
+      }
+    }
+    axios.post(request_url, formData, config)
       .then(response => response.data)
       .then(function(response){
         console.log('response from server:', response)
@@ -169,7 +173,7 @@ class AddNotch extends React.Component{
               />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <input type='file' onChange={this.uploadNotchImage} name="notchImg" />
+              <input type='file' onChange={this.uploadFile} name="file" />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <center>

@@ -6,6 +6,7 @@ var path = require('path')
 var session = require('express-session')
 var cookieParser = require('cookie-parser')
 var MongoStore = require('connect-mongo')(session)
+var fileUpload = require('express-fileupload')
 
 
 var app = express()
@@ -15,6 +16,8 @@ var PORT = process.env.PORT || 3001
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
+app.use(fileUpload())
+app.use(express.static('.'))
 
 // models and controls
 var experienceController = require('./controllers/experienceController.js')
@@ -41,14 +44,6 @@ db.once('open', function(){
   //})
 })
 app.use(cookieParser())
-//app.use(session({
-  //secret: 'sheldon cooper is awesome!',
-  //saveUninitialized: true,
-  //resave: true,
-  //store: new MongoStore({
-    //mongooseConnection: db
-  //})
-//}))
 
 
 // initial configs
