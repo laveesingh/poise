@@ -58,7 +58,7 @@ module.exports = function (app) {
     })
   })
 
-  app.get('/experience/list/', function(request, response){
+  app.get('/experience/list_by_radius/', function(request, response){
     var lat = request.query.lat
     var long = request.query.long
     var count = request.query.count
@@ -81,6 +81,32 @@ module.exports = function (app) {
         status: 0,
         msg: 'successfully fetched experiences',
         data: fitExperiences
+      })
+    })
+  })
+
+  app.get('/experience/list_by_category/', function(request, response){
+    var username = request.query.username
+    var category = request.query.category
+    var searchFilter = {}
+    if(username){
+      searchFilter.username = username
+    }
+    if(category != 'all'){
+      searchFilter.category = category
+    }
+    Experience.find(searchFilter, function(error, experiences){
+      if(error){
+        response.json({
+          status: 1,
+          msg: error
+        })
+        return
+      }
+      response.json({
+        status: 0,
+        msg: 'successfully fetched experiences',
+        data: experiences
       })
     })
   })

@@ -1,9 +1,10 @@
 import React from 'react';
 import {compose, withProps} from 'recompose';
-import { Grid } from 'material-ui'
+import { Grid, Paper } from 'material-ui'
 import Leftbar from './Leftbar'
 import NotchesList from './NotchesList'
 import Navbar from './Navbar'
+import NotchCard from './NotchCard'
 import '../styles/experience.css'
 import Cookies from 'js-cookie'
 import {
@@ -39,21 +40,21 @@ class Experience extends React.Component {
 
   constructor(props){
     super(props)
+    this.handleMapClick = this.handleMapClick.bind(this)
     this.loginUserToRoot = this.loginUserToRoot.bind(this)
     this.logoutUserToRoot = this.logoutUserToRoot.bind(this)
     this.openSignupDialog = this.openSignupDialog.bind(this)
     this.closeSignupDialog = this.closeSignupDialog.bind(this)
-    this.handleMapClick = this.handleMapClick.bind(this)
+    this.setFilteredNotches = this.setFilteredNotches.bind(this)
     this.state = {
       isMarkerShown: false,
       user: {},
       userLoggedIn: false,
       signupDialogOpened: false,
-      markerPosition: {}
+      markerPosition: {},
+      filteredNotches: [],
     };
-    //setInterval(()=>console.log("current user is", this.state.user), 3000)
   }
-
 
   componentDidMount() {
     this.delayedShowMarker();
@@ -95,6 +96,13 @@ class Experience extends React.Component {
       signupDialogOpened: false,
     })
   }
+  
+  setFilteredNotches(filteredNotches){
+    this.setState({
+      filteredNotches: filteredNotches
+    })
+  }
+
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({isMarkerShown: true});
@@ -121,7 +129,7 @@ class Experience extends React.Component {
     return (
       <Grid container >
         <Grid item lg={12} md={12} sm={12} >
-          <Navbar />
+          <Navbar setFilteredNotches={this.setFilteredNotches} />
         </Grid>
         <Grid item lg={2} md={6} sm={12} xs={12} id='left-bar-col'>
           <Leftbar 
@@ -138,15 +146,32 @@ class Experience extends React.Component {
         <Grid item lg={7} md={6} sm={12} xs={12} 
           id='mid-col'
         >
-          <Grid container>
-            <Grid item lg={12} md={12} sm={12} >
-              <MyMapComponent
-                isMarkerShown={this.state.isMarkerShown}
-                onMarkerClick={this.handleMarkerClick}
-                handleMapClick={this.handleMapClick}
-              />
+          <Paper>
+            <Grid container
+              style={{float: 'left', overflowY: 'auto', height: '700px'}}
+            >
+              <Grid item lg={12} md={12} sm={12} xs={12}>
+                <MyMapComponent
+                  isMarkerShown={this.state.isMarkerShown}
+                  onMarkerClick={this.handleMarkerClick}
+                  handleMapClick={this.handleMapClick}
+                />
+              </Grid>
+                {
+                  this.state.filteredNotches.map(notch => (
+                    <Grid item lg={6} md={6} sm={6} >
+                      <NotchCard 
+                        avatarLetter={notch.username[0].toUpperCase()}
+                        title={notch.title}
+                        description={notch.description}
+                        imgUrl={notch.imgUrl}
+                        timestamp={notch.date}
+                      />
+                    </Grid>
+                  ))
+                }
             </Grid>
-          </Grid>
+          </Paper>
         </Grid>
         <Grid item lg={3} md={10} sm={12} xs={12} 
           id='right-bar-col'
