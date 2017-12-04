@@ -5,6 +5,7 @@ var Location = require('./location.js')
 
 var img_default = "http://www.wiu.edu/student_services/housing/residence_halls/images/furniture/no-image-available.png"
 var experienceSchema = new Schema({
+  category: String,
   username: String,
   title: {type: String, required: true},
   description: {type: String, required: true},

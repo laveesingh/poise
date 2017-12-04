@@ -5,33 +5,45 @@ import {
 } from 'material-ui'
 import { MenuItem } from 'material-ui/Menu'
 import '../styles/search_notches.css'
+import axios from 'axios'
+import { $SERVER } from '../utils/server'
 
 class SearchNotches extends React.Component{
 
   constructor(props){
     super(props)
-    this.changeSearchBy = this.changeSearchBy.bind(this)
-    this.changeSearchKey = this.changeSearchKey.bind(this)
+    this.changeSearchCategory = this.changeSearchCategory.bind(this)
+    this.changeSearchUsername = this.changeSearchUsername.bind(this)
     this.search = this.search.bind(this)
     this.state = {
-      searchBy: 'radius'
+      searchCategory: 'all'
     }
   }
 
-  changeSearchBy(event){
+  changeSearchCategory(event){
     this.setState({
-      searchBy: event.target.value
+      searchCategory: event.target.value
     })
   }
 
-  changeSearchKey(event){
+  changeSearchUsername(event){
     this.setState({
-      searchKey: event.target.value
+      searchUsername: event.target.value
     })
   }
 
-  search(event){
-    alert('searching')
+  search(){
+    var request_url = $SERVER + '/experience/list_by_category/'
+    axios.get(request_url, {
+      params:{
+        username: this.state.searchUsername,
+        category: this.state.searchCategory
+      }
+    })
+      .then(response => response.data)
+      .then(response => {
+        console.log('response from server:', response)
+      })
   }
 
   render(){
@@ -49,19 +61,23 @@ class SearchNotches extends React.Component{
             <Grid item lg={2} md={2} sm={2} xs={3}>
               <TextField fullWidth select
                 id='search-by'
-                value={this.state.searchBy}
-                onChange={this.changeSearchBy}
+                value={this.state.searchCategory}
+                onChange={this.changeSearchCategory}
                 label='search by'
               >
-                <MenuItem key='radius' value='radius'>Radius</MenuItem>
-                <MenuItem key='user' value='user'>User</MenuItem>
-                <MenuItem key='keyword' value='keyword'>Keyword</MenuItem>
+                <MenuItem key='all' value='all'>All</MenuItem>
+                <MenuItem key='art' value='art'>Art</MenuItem>
+                <MenuItem key='shows' value='shows'>Shows</MenuItem>
+                <MenuItem key='sports' value='sports'>Sports</MenuItem>
+                <MenuItem key='animal' value='animal'>Animal</MenuItem>
+                <MenuItem key='outdoor' value='outdoor'>Outdoor</MenuItem>
+                <MenuItem key='lifestyle' value='lifestyle'>Lifestyle</MenuItem>
               </TextField>
             </Grid>
             <Grid item lg={4} md={4} sm={4} xs={3}>
               <TextField id='search-box' fullWidth
-                value={this.state.searchKey}
-                onChange={this.changeSearchKey}
+                value={this.state.searchUsername}
+                onChange={this.changeSearchUsername}
                 label='search'
               />
             </Grid>
