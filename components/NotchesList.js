@@ -2,15 +2,29 @@ import React from 'react'
 
 import { 
   Grid, Divider, Typography,
-  Avatar, Paper
+  Avatar, Paper, Dialog
 } from 'material-ui'
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
 
 import { notches } from '../utils/dummyNotches'
+import NotchCard from './NotchCard'
 import axios from 'axios'
 import { $SERVER } from '../utils/server'
 
 class NotchesList extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.changeSearchBy = this.changeSearchBy.bind(this)
+    this.openComplexNotch = this.openComplexNotch.bind(this)
+    this.closeComplexNotch = this.closeComplexNotch.bind(this)
+    this.state = {
+      searchBy: 'radius',
+      notchesList: [],
+      complexNotch: null,
+      complexNotchOpened: false,
+    }
+  }
 
   componentDidMount(){
     var request_url = $SERVER + '/experience/list/all'
@@ -19,23 +33,36 @@ class NotchesList extends React.Component{
       .then(response => {
         //console.log('response from server:', response.data)
         this.setState({
-          notchesList: response.data
+          notchesList: response.data,
         })
       })
-  }
-
-  constructor(props){
-    super(props)
-    this.changeSearchBy = this.changeSearchBy.bind(this)
-    this.state = {
-      searchBy: 'radius',
-      notchesList: []
-    }
   }
 
   changeSearchBy(event){
     this.setState({
       searchBy: event.target.value
+    })
+  }
+
+  openComplexNotch(event, notch_id){
+    var request_url = $SERVER + '/experience/search_by_id/' + notch_id
+    console.log('requesting server:', request_url)
+    axios.get(request_url)
+      .then(response => response.data)
+      .then(response => {
+        console.log('response from server:', response.data)
+        this.setState({
+          complexNotch: response.data,
+          complexNotchOpened: true,
+        })
+        setInterval(()=>console.log('current state:', this.state), 5)
+      })
+  }
+
+  closeComplexNotch(){
+    this.setState({
+      complexNotchOpened: false,
+      complexNotch: null,
     })
   }
 
@@ -64,7 +91,7 @@ class NotchesList extends React.Component{
                 <Grid container>
                   { this.state.notchesList.map(notch => (
                     <Grid item lg={12} md={6} sm={6} xs={12}>
-                      <Card>
+                      <Card onClick={(event) => this.openComplexNotch(event, notch._id)}>
                         <CardHeader
                           avatar={
                             <Avatar aria-label='Recipe' style={{ backgroundColor: '#333333'}}>
@@ -87,6 +114,25 @@ class NotchesList extends React.Component{
                           </Typography>
                         </CardContent>
                       </Card>
+                      <Dialog 
+                        onRequestClose={this.closeComplexNotch}
+                        open={this.state.complexNotchOpened} >
+                        {
+                          this.state.complexnotch 
+                          ? (
+                            <NotchCard 
+                              avatarLetter={this.state.complexNotch.username[0].toUpperCase()}
+                              title={this.state.complexNotch.title}
+                              description={this.state.complexNotch.description}
+                              imgUrl={this.state.complexNotch.imgUrl}
+                              timestamp={this.state.complexNotch.date}
+                            />
+                          )
+                            : (
+                              <h1>This is never gonna appear.</h1>
+                            )
+                        }
+                      </Dialog>
                     </Grid>
                   )) }
                   

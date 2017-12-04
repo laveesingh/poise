@@ -103,6 +103,24 @@ module.exports = function (app) {
     })
   })
 
+  app.get('/experience/search_by_id/:id', function(request, response){
+    console.log('finding notch for ', request.params.id)
+    Experience.find({_id: request.params.id}, function(error, experience){
+      if(error){
+        response.json({
+          status: 1,
+          msg: error
+        })
+        return
+      }
+      response.json({
+        status: 0,
+        msg: 'successfully fetched the experience',
+        data: experience
+      })
+    })
+  })
+
   app.get('/experience/delete/:id', function(request, response){
     var id = request.params.id
     Experience.findByIdAndRemove(id, function(error, data){
