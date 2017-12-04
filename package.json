@@ -17,6 +17,7 @@
     "cors": "^2.8.4",
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
+    "express-fileupload": "^0.3.0",
     "express-session": "^1.15.6",
     "foreman": "^2.0.0",
     "google-map-react": "^0.25.0",

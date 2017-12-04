@@ -14,8 +14,18 @@ module.exports = function (app) {
   })
 
   app.post('/experience/create/', function(request, response){
-    console.log('request:', request.body)
-    var experience = new Experience(request.body)
+    var $SERVER = 'http://localhost:3001'
+    var imgFile = request.files.file
+    var imgName = imgFile.name.replace(' ', '_')
+    var imgPath = $SERVER + '/media/img/' + imgName  // this may overwrite another file with same name
+    imgFile.mv(path.join(__dirname, '..', 'media', 'img', imgName), function(error){
+      if(error) console.log(error)
+      else console.log('successfully uploaded image file:', imgPath)
+    })
+    var experience = new Experience({
+      ...request.body,
+      imgUrl: imgPath
+    })
     var username = request.body.username
     var user = User.findOne({username: username}, function(error, user){
       if(error){
