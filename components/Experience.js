@@ -166,6 +166,8 @@ class Experience extends React.Component {
                         description={notch.description}
                         imgUrl={notch.imgUrl}
                         timestamp={notch.date}
+                        category={notch.category}
+                        username={notch.username}
                       />
                     </Grid>
                   ))

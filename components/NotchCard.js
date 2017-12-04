@@ -32,6 +32,10 @@ const NotchCard = (props) => (
       <Typography component="p">
         {props.description}
       </Typography>
+      <Typography component="h4" type="headline">
+        User: {props.username}<br />
+        Category: {props.category}
+      </Typography>
     </CardContent>
   </Card>
 )

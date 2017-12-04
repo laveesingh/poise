@@ -203,6 +203,8 @@ class Leftbar extends React.Component{
                             description={notch.description}
                             imgUrl={notch.imgUrl}
                             timestamp={notch.date}
+                            username={notch.username}
+                            category={notch.category}
                           />
                         ))
                       }
@@ -324,6 +326,7 @@ class Leftbar extends React.Component{
               <AddNotch 
                 username={this.props.user.username}
                 markerPosition={this.props.markerPosition}
+                closeAddNotch={this.closeAddNotch}
               />
             </Dialog>
           </Grid>
@@ -332,5 +335,4 @@ class Leftbar extends React.Component{
     )
   }
 }
-
 export default Leftbar

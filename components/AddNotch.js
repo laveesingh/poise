@@ -22,7 +22,7 @@ class AddNotch extends React.Component{
     this.changeHeadline = this.changeHeadline.bind(this)
     this.changeExperience = this.changeExperience.bind(this)
     this.state = {
-      category: 'first',
+      category: 'all',
       headline: '',
       experience: '',
       notchImage: '',
@@ -75,7 +75,7 @@ class AddNotch extends React.Component{
   }
 
   addNotch(){
-
+    var _this = this;
     var imgUrl = "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
     var request_url = $SERVER + '/experience/create/'
     axios.post(request_url, {
@@ -85,10 +85,12 @@ class AddNotch extends React.Component{
       latitude: this.state.latitude,
       longitude: this.state.longitude,
       imgUrl: imgUrl,
+      category: this.state.category
     })
       .then(response => response.data)
       .then(function(response){
         console.log('response from server:', response)
+        _this.props.closeAddNotch()
       })
   }
 
@@ -120,9 +122,13 @@ class AddNotch extends React.Component{
                   onChange={this.changeCategory}
                   id='category' >
 
-                  <MenuItem value='first' onClick={this.changeCategory}>First</MenuItem>
-                  <MenuItem value='second' onClick={this.changeCategory}>Second</MenuItem>
-                  <MenuItem value='third' onClick={this.changeCategory}>Third</MenuItem>
+                  <MenuItem key='all' value='all'>All</MenuItem>
+                  <MenuItem key='art' value='art'>Art</MenuItem>
+                  <MenuItem key='shows' value='shows'>Shows</MenuItem>
+                  <MenuItem key='sports' value='sports'>Sports</MenuItem>
+                  <MenuItem key='animal' value='animal'>Animal</MenuItem>
+                  <MenuItem key='outdoor' value='outdoor'>Outdoor</MenuItem>
+                  <MenuItem key='lifestyle' value='lifestyle'>Lifestyle</MenuItem>
                 </Select>
               </FormControl>
 
