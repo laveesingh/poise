@@ -147,7 +147,9 @@ class Experience extends React.Component {
           id='mid-col'
         >
           <Paper>
-            <Grid container>
+            <Grid container
+              style={{float: 'left', overflowY: 'auto', height: '700px'}}
+            >
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 <MyMapComponent
                   isMarkerShown={this.state.isMarkerShown}
