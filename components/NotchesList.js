@@ -126,6 +126,8 @@ class NotchesList extends React.Component{
                               description={this.state.complexNotch.description}
                               imgUrl={this.state.complexNotch.imgUrl}
                               timestamp={this.state.complexNotch.date}
+                              username={this.state.complexNotch.username}
+                              category={this.state.complexNotch.category}
                             />
                           )
                             : (
