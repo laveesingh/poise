@@ -29,19 +29,12 @@ var User = require('./models/user.js')
 
 
 // database
-var mongoDB = 'mongodb://localhost:27017';
+var mongoDB = 'mongodb://localhost:27017/poise';
 mongoose.connect(mongoDB, { useMongoClient: true })
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function(){
   console.log('connected to the database')
-  //User.find({}, function(error, users){
-    //if(error) return console.error(error)
-    //console.log(users)
-  //}).remove(function(error, users){
-    //if(error) return console.error(error)
-    //console.log('everything deleted')
-  //})
 })
 app.use(cookieParser())
 
