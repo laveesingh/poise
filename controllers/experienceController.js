@@ -85,6 +85,24 @@ module.exports = function (app) {
     })
   })
 
+  app.get('/experience/list_by_user/:username', function(request, response){
+    console.log('finding notches for ', request.params.username)
+    Experience.find({username: request.params.username}, function(error, experiences){
+      if(error){
+        response.json({
+          status: 1,
+          msg: error
+        })
+        return
+      }
+      response.json({
+        status: 0,
+        msg: 'successfully fetched experiences',
+        data: experiences
+      })
+    })
+  })
+
   app.get('/experience/delete/:id', function(request, response){
     var id = request.params.id
     Experience.findByIdAndRemove(id, function(error, data){
