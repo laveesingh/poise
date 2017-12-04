@@ -41,6 +41,23 @@ module.exports = function (app) {
     })
   })
 
+  app.get('/experience/list/all', function(request, response){
+    Experience.find({}, function(error, experiences){
+      if(error){
+        response.json({
+          status: 1,
+          msg: error
+        })
+        return
+      }
+      response.json({
+        status: 0,
+        msg: 'successfully fetched experiences',
+        data: experiences
+      })
+    })
+  })
+
   app.get('/experience/list/', function(request, response){
     var lat = request.query.lat
     var long = request.query.long
@@ -64,6 +81,16 @@ module.exports = function (app) {
         status: 0,
         msg: 'successfully fetched experiences',
         data: fitExperiences
+      })
+    })
+  })
+
+  app.get('/experience/delete/:id', function(request, response){
+    var id = request.params.id
+    Experience.findByIdAndRemove(id, function(error, data){
+      response.json({
+        error: error,
+        data: data
       })
     })
   })
