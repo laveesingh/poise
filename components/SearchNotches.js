@@ -43,6 +43,7 @@ class SearchNotches extends React.Component{
       .then(response => response.data)
       .then(response => {
         console.log('response from server:', response)
+        this.props.setFilteredNotches(response.data)
       })
   }
 
