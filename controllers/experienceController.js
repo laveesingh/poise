@@ -3,6 +3,9 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var Experience = require("./../models/experience.js");
+var User = require('../models/user.js')
+var multer = require('multer')
+var upload = multer({ dest: '/media/' })
 
 module.exports = function (app) {
 
@@ -11,6 +14,7 @@ module.exports = function (app) {
   })
 
   app.post('/experience/create/', function(request, response){
+    console.log('request:', request.body)
     var experience = new Experience(request.body)
     var username = request.body.username
     var user = User.findOne({username: username}, function(error, user){
@@ -21,7 +25,6 @@ module.exports = function (app) {
         })
       }
     })
-    experience.userId 
     experience.save(function(error, experience){
       if(error){
         response.json({

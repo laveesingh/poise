@@ -24,7 +24,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap,
 )(props => (
-  <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}}>
+  <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}} onClick={props.handleMapClick}>
     {props.isMarkerShown && (
       <Marker
         position={{lat: -34.397, lng: 150.644}}
@@ -43,11 +43,13 @@ class Experience extends React.Component {
     this.logoutUserToRoot = this.logoutUserToRoot.bind(this)
     this.openSignupDialog = this.openSignupDialog.bind(this)
     this.closeSignupDialog = this.closeSignupDialog.bind(this)
+    this.handleMapClick = this.handleMapClick.bind(this)
     this.state = {
       isMarkerShown: false,
       user: {},
       userLoggedIn: false,
       signupDialogOpened: false,
+      markerPosition: {}
     };
     //setInterval(()=>console.log("current user is", this.state.user), 3000)
   }
@@ -104,6 +106,17 @@ class Experience extends React.Component {
     this.delayedShowMarker();
   };
 
+  handleMapClick(event){
+    //console.log("position:", event.latLng.lat())
+    console.log('position:', event.latLng.lat(), event.latLng.lng())
+    this.setState({
+      markerPosition: {
+        latitude: event.latLng.lat(),
+        longitude: event.latLng.lng()
+      }
+    })
+  }
+
   render() {
     return (
       <Grid container>
@@ -119,6 +132,7 @@ class Experience extends React.Component {
             signupDialogOpened={this.state.signupDialogOpened}
             openSignupDialog={this.openSignupDialog}
             closeSignupDialog={this.closeSignupDialog}
+            markerPosition={this.state.markerPosition}
           />
         </Grid>
         <Grid item lg={7} md={6} sm={12} xs={12} id='mid-col'>
@@ -127,6 +141,7 @@ class Experience extends React.Component {
               <MyMapComponent
                 isMarkerShown={this.state.isMarkerShown}
                 onMarkerClick={this.handleMarkerClick}
+                handleMapClick={this.handleMapClick}
               />
             </Grid>
           </Grid>

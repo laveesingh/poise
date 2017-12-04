@@ -7,6 +7,8 @@ import {
 import { FormControl } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
 import '../styles/rightbar.css'
+import { $SERVER } from '../utils/server'
+import axios from 'axios'
 
 class AddNotch extends React.Component{
 
@@ -16,11 +18,42 @@ class AddNotch extends React.Component{
     this.changeLatitude = this.changeLatitude.bind(this)
     this.changeLongitude = this.changeLongitude.bind(this)
     this.addNotch = this.addNotch.bind(this)
+    this.uploadNotchImage = this.uploadNotchImage.bind(this)
+    this.changeHeadline = this.changeHeadline.bind(this)
+    this.changeExperience = this.changeExperience.bind(this)
     this.state = {
       category: 'first',
       headline: '',
-      experience: ''
+      experience: '',
+      notchImage: '',
     }
+  }
+
+
+
+  componentDidMount(){
+    this.setState({
+      latitude: this.props.markerPosition.latitude,
+      longitude: this.props.markerPosition.longitude
+    })
+  }
+  changeHeadline(event){
+    this.setState({
+      headline: event.target.value
+    })
+  }
+
+  changeExperience(event){
+    this.setState({
+      experience: event.target.value
+    })
+  }
+
+  uploadNotchImage(event){
+    var file = event.target.files[0];
+    this.setState({
+      notchImage: file
+    })
   }
 
   changeCategory(event){
@@ -42,7 +75,21 @@ class AddNotch extends React.Component{
   }
 
   addNotch(){
-    alert('notch added')
+
+    var imgUrl = "http://travel.home.sndimg.com/content/dam/images/travel/fullset/2014/12/3/top-10-caribbean-beaches-eagle-beach-aruba.jpg.rend.hgtvcom.966.725.suffix/1491584555480.jpeg"
+    var request_url = $SERVER + '/experience/create/'
+    axios.post(request_url, {
+      username: this.props.username,
+      title: this.state.headline,
+      description: this.state.experience,
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      imgUrl: imgUrl,
+    })
+      .then(response => response.data)
+      .then(function(response){
+        console.log('response from server:', response)
+      })
   }
 
   render(){
@@ -114,6 +161,9 @@ class AddNotch extends React.Component{
                 onChange={this.changeExperience} label='experience'
                 rows={3}
               />
+            </Grid>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <input type='file' onChange={this.uploadNotchImage} name="notchImg" />
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <center>

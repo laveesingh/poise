@@ -281,7 +281,10 @@ class Leftbar extends React.Component{
             </Button>
             <Dialog 
               onRequestClose={this.closeAddNotch} open={this.state.addNotchOpened} id='add-notch-dialog'>
-              <AddNotch />
+              <AddNotch 
+                username={this.props.user.username}
+                markerPosition={this.props.markerPosition}
+              />
             </Dialog>
           </Grid>
         </Grid>
